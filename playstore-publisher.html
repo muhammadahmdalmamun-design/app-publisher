@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>অ্যাপ পাবলিশার</title>
+<style>
+:root{box-sizing:border-box;--bg:#eef2f6;--card:#fff;--tx:#14202b;--mut:#5b6b7a;--bd:#d6dee6;--pri:#0f7b6c;--prit:#fff;--ok:#0b7a3b;--er:#b3261e}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1620;--card:#17222e;--tx:#e8eef4;--mut:#9fb0c0;--bd:#2a3a4a;--pri:#2bb39f;--prit:#06231f;--ok:#5fd28b;--er:#ff8a80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;line-height:1.6;padding:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;max-width:560px;margin:0 auto 14px}
+h1{font-size:1.3rem;margin:0 0 4px}h2{font-size:1.05rem;margin:0 0 6px}
+p,li{color:var(--mut);margin:4px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,textarea,select{width:100%;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:10px}
+textarea{min-height:150px;font-family:ui-monospace,monospace;font-size:.82rem}
+input[type=color]{height:44px;padding:4px}
+input[type=checkbox]{width:auto}
+.row{display:flex;gap:10px}.row>div{flex:1}
+button,a.btn{display:block;text-align:center;text-decoration:none;font:inherit;font-weight:700;border:0;border-radius:12px;padding:13px 16px;background:var(--pri);color:var(--prit);width:100%;margin-top:12px;cursor:pointer}
+button.sec,a.btn.sec{background:transparent;color:var(--pri);border:1px solid var(--pri)}
+button:disabled{opacity:.5}
+#icon{width:72px;height:72px;border-radius:16px;border:1px solid var(--bd);display:block;margin:8px 0}
+.log{white-space:pre-wrap;font-size:.88rem;margin-top:10px;color:var(--tx)}
+.ok{color:var(--ok);font-weight:700}.er{color:var(--er);font-weight:700}
+.warn{border-left:4px solid var(--er);padding-left:10px}
+ol{padding-left:20px}
+code{background:var(--bg);padding:1px 5px;border-radius:6px;word-break:break-all}
+.hide{display:none}.kv{border-top:1px solid var(--bd);padding:8px 0}.kv b{display:block}.kv button{width:auto;display:inline-block;padding:6px 14px;margin:6px 0 0;font-size:.85rem}.ck{display:flex;gap:8px;align-items:flex-start;margin:8px 0;font-weight:400}.ck input{margin-top:6px}
+
+.top{max-width:560px;margin:0 auto 12px}.barw{height:8px;background:var(--bd);border-radius:8px;margin-top:6px;overflow:hidden}.bar{height:8px;background:var(--pri);width:25%;transition:width .3s}
+details{margin-top:14px}summary{font-weight:700;color:var(--pri);padding:8px 0}
+.nav{display:flex;gap:10px}.nav button{margin-top:12px}.nav .sec{flex:1}.nav .big{flex:2}
+.sub{font-weight:700;margin:16px 0 4px}
+</style>
+</head>
+<body>
+<div class="top"><b id="stl">ধাপ 1 / 4</b><div class="barw"><div id="bar" class="bar"></div></div></div>
+
+<div class="st" data-s="1">
+<div class="card">
+<h1>🚀 অ্যাপ পাবলিশার</h1>
+<p>৪টি সহজ ধাপে আপনার অ্যাপ প্লে স্টোরের জন্য প্রস্তুত হবে। এখন ধাপ ১: আপনার অ্যাপ।</p>
+<label for="name">১. অ্যাপের নাম</label>
+<input id="name" placeholder="খালি রাখলে টুল নিজেই নাম বসাবে">
+<label for="hf">২. অ্যাপের ফাইল</label>
+<p>আপনার অ্যাপ একটি .html ফাইলে থাকলে সেটি বাছুন।</p>
+<input id="hf" type="file" accept=".html,.htm,text/html">
+<p id="fn">এখন নমুনা কাউন্টার অ্যাপ বসানো আছে (পরীক্ষার জন্য)।</p>
+<details>
+<summary>কোড পেস্ট করব / আরও সেটিং (ঐচ্ছিক)</summary>
+<label for="code">অ্যাপের কোড</label>
+<textarea id="code"></textarea>
+<button class="sec" id="reset">নমুনা কোড ফিরিয়ে আনুন</button>
+<label for="desc">ছোট বিবরণ</label><input id="desc">
+<label for="ldesc">বিস্তারিত বিবরণ</label><textarea id="ldesc" style="min-height:90px;font-family:inherit;font-size:1rem"></textarea>
+<div class="row"><div><label for="theme">থিম রং</label><input id="theme" type="color" value="#0f7b6c"></div><div><label for="bgc">ব্যাকগ্রাউন্ড</label><input id="bgc" type="color" value="#ffffff"></div></div>
+<label for="img">আইকন ছবি (না দিলে নামের প্রথম অক্ষর)</label><input id="img" type="file" accept="image/*">
+<canvas id="icon" width="72" height="72"></canvas>
+<label for="email">যোগাযোগের ইমেইল</label><input id="email" type="email" placeholder="you@example.com">
+<label for="dev">ডেভেলপারের নাম</label><input id="dev">
+<label for="mode">প্রকাশের ধরন</label>
+<select id="mode"><option value="sep">আলাদা রিপো (সাধারণ, নিরাপদ)</option><option value="root">মূল ডোমেইনে (একটি অ্যাপ, ইউজারনেম.github.io পাতা বদলে যাবে)</option></select>
+<p id="modeNote">সাধারণত এটি বদলানোর দরকার নেই।</p>
+<label for="repo">রিপোর নাম (খালি রাখলে নিজে ঠিক করবে)</label><input id="repo">
+</details>
+<button id="n1">পরের ধাপ →</button>
+<div class="log" id="e1"></div>
+<p class="sub">অথবা</p>
+<button class="sec" id="selfBtn">📲 এই টুলটিকেই আমার হোমস্ক্রিনে রাখুন</button>
+<p>টুল নিজেকে আপনার গিটহাবে তুলে দেবে। তারপর হোমস্ক্রিন থেকে অ্যাপের মতো খুলে যেকোনো সময় ব্যবহার করতে পারবেন।</p>
+</div>
+<div class="card" id="mgr">
+<h2>🔗 গিটহাব ম্যানেজার</h2>
+<p>ফাইল দেখা, বদলানো বা আগের অ্যাপ ঠিক করতে ম্যানেজার খুলুন। টোকেন আবার বসাতে হবে না (একই ওয়েবসাইট থেকে খুললে)।</p>
+<button class="sec" id="mgrGo">গিটহাব ম্যানেজার খুলুন</button>
+<div class="log" id="mgrMsg"></div>
+</div>
+<div class="card hide" id="myApps">
+<h2>📚 আমার অ্যাপগুলো</h2>
+<div id="appList"></div>
+</div>
+</div>
+
+<div class="st hide" data-s="2">
+<div class="card">
+<h2>ধাপ ২: গিটহাব সংযোগ</h2>
+<p>গিটহাব অ্যাকাউন্ট না থাকলে আগে খুলুন (বিনামূল্যে):</p>
+<a class="btn sec" target="_blank" rel="noopener" href="https://github.com/signup">গিটহাব অ্যাকাউন্ট খুলুন</a>
+<p class="sub">অ্যাকাউন্ট থাকলে টোকেন (গোপন চাবি) নিন:</p>
+<ol><li>নিচের বাটন ট্যাপ করুন, লগইন চাইলে লগইন করুন।</li><li>পাতার একদম নিচে সবুজ <b>Generate token</b> ট্যাপ করুন।</li><li>যে লেখাটি (ghp_...) আসবে তা কপি করে নিচে বসান।</li></ol>
+<a class="btn" target="_blank" rel="noopener" href="https://github.com/settings/tokens/new?scopes=repo&description=app-publisher">টোকেন বানাতে গিটহাব খুলুন</a>
+<label for="tok">টোকেন</label>
+<input id="tok" type="password" placeholder="ghp_..." autocomplete="off">
+<label style="font-weight:400"><input type="checkbox" id="rem" checked> এই ফোনে মনে রাখুন (শুধু নিজের ফোনে)</label>
+<button id="chk" class="hide">যাচাই</button>
+<div class="log" id="who"></div>
+<p class="warn">টোকেন কাউকে দেবেন না। কাজ শেষে গিটহাব থেকে মুছে দিতে পারেন।</p>
+<div class="nav"><button class="sec" id="b2">← পিছনে</button><button class="big" id="n2">যাচাই করে পরের ধাপ →</button></div>
+</div>
+</div>
+
+<div class="st hide" data-s="3">
+<div class="card">
+<h2>ধাপ ৩: প্রকাশ</h2>
+<p>নিচের বাটন ট্যাপ করলে টুল নিজে রিপো বানাবে, ফাইল ও গোপনীয়তা নীতি তুলবে এবং সাইট চালু করবে। ১ মিনিটের মতো লাগে।</p>
+<button id="go">এখন প্রকাশ করুন</button>
+<div class="log" id="log"></div>
+<div class="nav"><button class="sec" id="b3">← পিছনে</button></div>
+</div>
+</div>
+
+<div class="st hide" data-s="4">
+<div class="card hide" id="done">
+<h2>✅ আপনার সাইট তৈরি</h2>
+<p><code id="siteUrl"></code></p>
+<a class="btn sec" id="openSite" target="_blank" rel="noopener" href="#">সাইট খুলে দেখুন</a>
+<button class="sec" id="live">সাইট চালু হয়েছে কি না দেখুন</button>
+<div class="log" id="liveMsg"></div>
+</div>
+<div class="card hide" id="selfTip">
+<h2>📲 হোমস্ক্রিনে রাখুন</h2>
+<ol><li>উপরের সাইটের লিংক Chrome-এ খুলুন।</li><li>ডান উপরের ⋮ ট্যাপ করে <b>Add to Home screen</b> বাছুন।</li><li>এরপর হোমস্ক্রিনের আইকন থেকে টুলটি খুলুন।</li></ol>
+<p>নতুন জায়গায় প্রথমবার টোকেন আবার বসাতে হবে। নিচের প্লে স্টোরের ধাপগুলো এই টুলের জন্য দরকার নেই, আপনার অন্য অ্যাপের জন্য কাজে লাগবে।</p>
+</div>
+<div class="card" id="today">
+<h2>🎯 আজকের কাজ</h2>
+<p id="todayTxt"></p>
+<a class="btn" id="todayGo" target="_blank" rel="noopener" href="#">👉 এই কাজের জায়গায় যান</a>
+<button id="todayDone">এটা হয়ে গেছে ✔</button>
+<button class="sec" id="newApp">🆕 নতুন অ্যাপ শুরু করুন</button>
+<p class="sub">একাধিক অ্যাপ দিলে প্রতিটির জন্য "নতুন অ্যাপ শুরু করুন" চাপুন। এতে চেকলিস্ট নতুন হবে, শুধু ডেভেলপার অ্যাকাউন্টের ধাপ সম্পন্ন থাকবে (ওটা একবারই লাগে)।</p>
+<p class="sub">একটি করে কাজ করুন। নিচের ক) ও খ) অংশে বিস্তারিত পাবেন।</p>
+</div>
+<div class="card">
+<h2>ক) অ্যাপ ফাইল (AAB) বানান</h2>
+<ol><li>নিচের বাটনে ট্যাপ করুন, PWABuilder খুলবে।</li><li>Package for stores > Android > Generate চাপুন।</li><li>Package ID ও নাম নিচের কিট থেকে কপি করে বসান।</li><li>AAB ও সাইনিং কী ডাউনলোড করে নিরাপদে রাখুন।</li></ol>
+<a class="btn" id="pwab" target="_blank" rel="noopener" href="#">PWABuilder খুলুন</a>
+</div>
+<div class="card hide" id="kit">
+<h2>📋 কপি-পেস্ট কিট</h2>
+<p>প্লে কনসোলে যা লাগবে সব তৈরি। "কপি" ট্যাপ করে বসান।</p>
+<div id="kitRows"></div>
+<a class="btn sec" id="fgDl" download="feature-graphic.png" href="#">ফিচার গ্রাফিক ডাউনলোড</a>
+<p>স্ক্রিনশট: ফোনে অ্যাপ খুলে কমপক্ষে ২টি স্ক্রিনশট নিন।</p>
+<p class="warn">নীতি ও Data safety উত্তর তখনই সঠিক, যখন অ্যাপে লগইন, বিজ্ঞাপন বা সার্ভারে তথ্য পাঠানো নেই।</p>
+</div>
+<div class="card">
+<h2>খ) প্লে কনসোলে জমা দিন</h2>
+<p>গুগল ডেভেলপার অ্যাকাউন্ট লাগবে (একবার ২৫ ডলার, পরিচয় যাচাই)। এটি গুগলের নিয়ম, টুল করে দিতে পারে না।</p>
+<a class="btn" target="_blank" rel="noopener" href="https://play.google.com/console">প্লে কনসোল খুলুন</a>
+<h2 class="sub">চেকলিস্ট</h2>
+<p id="ckProg" class="ok"></p>
+<div id="ckList"></div>
+</div>
+<div class="card hide" id="al">
+<details><summary>ঐচ্ছিক: অ্যাপে ঠিকানার বার সরান</summary>
+<p>PWABuilder থেকে পাওয়া assetlinks.json পেস্ট করে আপলোড করুন (মূল ডোমেইন ধরনে ভালো কাজ করে)।</p>
+<textarea id="alText"></textarea>
+<button id="alGo">আপলোড করুন</button>
+<div class="log" id="alLog"></div>
+</details>
+</div>
+</div>
+
+<script>
+var SELF = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+var selfMode = false;
+var SAMPLE = '<!DOCTYPE html>\n<html lang="bn">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>কাউন্টার<\/title>\n<style>body{font-family:sans-serif;text-align:center;padding:40px}#n{font-size:80px}button{font-size:24px;padding:14px 30px;border-radius:14px;border:0;background:#0f7b6c;color:#fff}<\/style>\n<\/head>\n<body>\n<h2>আমার কাউন্টার<\/h2>\n<div id="n">0<\/div>\n<button onclick="n.textContent=++c">+১<\/button>\n<script>var c=0;<\/script>\n<\/body>\n<\/html>';
+var $ = function(i){return document.getElementById(i)};
+var login = null, userImg = null, lastSite = '', lastRepo = '', lastBranch = 'main';
+
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function lsDel(k){try{localStorage.removeItem(k)}catch(e){}}
+
+$('code').value = SAMPLE;
+$('reset').onclick = function(){$('code').value = SAMPLE};
+var saved = lsGet('gh_tok') || lsGet('gt'); if(saved){$('tok').value = saved; $('rem').checked = true}
+
+function say(el, t, cls){el.className = 'log ' + (cls||''); el.textContent = t}
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'')}
+
+/* আইকন */
+function drawIcon(cv, size){
+  var x = cv.getContext('2d'); cv.width = size; cv.height = size;
+  x.fillStyle = $('theme').value; x.fillRect(0,0,size,size);
+  if (userImg){
+    var s = Math.min(userImg.width, userImg.height);
+    x.drawImage(userImg,(userImg.width-s)/2,(userImg.height-s)/2,s,s,0,0,size,size);
+  } else {
+    x.fillStyle = '#fff'; x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.font = 'bold ' + Math.round(size*.5) + 'px sans-serif';
+    x.fillText(($('name').value.trim()[0] || 'A'), size/2, size/2);
+  }
+}
+function preview(){drawIcon($('icon'),72)}
+['name','theme'].forEach(function(i){$(i).addEventListener('input',preview)});
+$('img').onchange = function(e){
+  var f = e.target.files[0]; if(!f){userImg=null;preview();return}
+  var im = new Image(); im.onload = function(){userImg = im; preview()}; im.src = URL.createObjectURL(f);
+};
+preview();
+function iconB64(size){var c = document.createElement('canvas'); drawIcon(c,size); return c.toDataURL('image/png').split(',')[1]}
+
+/* গিটহাব API */
+async function gh(method, path, body){
+  var r = await fetch('https://api.github.com' + path, {
+    method: method,
+    headers: {'Authorization':'Bearer ' + $('tok').value.trim(), 'Accept':'application/vnd.github+json'},
+    body: body ? JSON.stringify(body) : undefined
+  });
+  var t = await r.text(), j = null; try{j = JSON.parse(t)}catch(e){}
+  if(!r.ok){var er = new Error((j && j.message) || String(r.status)); er.status = r.status; throw er}
+  return j;
+}
+function b64(str){var b = new TextEncoder().encode(str), s = ''; for(var i=0;i<b.length;i++) s += String.fromCharCode(b[i]); return btoa(s)}
+function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+async function putFile(owner, repo, branch, path, content, msg){
+  for (var t=0; t<4; t++){
+    try{
+      var sha;
+      try{ sha = (await gh('GET','/repos/'+owner+'/'+repo+'/contents/'+path+'?ref='+branch)).sha }
+      catch(e){ if(e.status !== 404) throw e }
+      await gh('PUT','/repos/'+owner+'/'+repo+'/contents/'+path, {message:msg, content:content, branch:branch, sha:sha});
+      return;
+    }catch(e){ if(t === 3) throw e; await wait(2000) }
+  }
+}
+function explain(e){
+  if(e.status === 401) return 'টোকেন ঠিক নয় বা মেয়াদ শেষ। নতুন টোকেন বানান।';
+  if(e.status === 403) return 'অনুমতি নেই। টোকেন বানানোর সময় "repo" টিক দেওয়া ছিল কি না দেখুন।';
+  if(e.status === 404) return 'পাওয়া যায়নি। রিপোর নাম ও টোকেনের অনুমতি দেখুন।';
+  return (e.message || 'অজানা সমস্যা') + ' (ইন্টারনেট সংযোগ দেখুন)';
+}
+
+/* সংযোগ যাচাই */
+$('chk').onclick = async function(){
+  var t = $('tok').value.trim();
+  if(!t){say($('who'),'আগে টোকেন বসান।','er');return}
+  say($('who'),'যাচাই হচ্ছে...');
+  try{
+    var u = await gh('GET','/user'); login = u.login;
+    if($('rem').checked){ lsSet('gh_tok', t); lsSet('gt', t) } else lsDel('gh_tok');
+    say($('who'),'✅ সংযুক্ত: ' + login,'ok');
+  }catch(e){login = null; say($('who'),'❌ ' + explain(e),'er')}
+};
+
+$('mode').onchange = function(){
+  var root = $('mode').value === 'root';
+  $('repo').disabled = root;
+  $('modeNote').textContent = root
+    ? 'রিপোর নাম হবে আপনার-ইউজারনেম.github.io। একই অ্যাকাউন্টে এভাবে একটিই অ্যাপ রাখা যায়। আগের ফাইল বদলে যাবে।'
+    : 'আলাদা রিপোতে প্লে স্টোরের অ্যাপে উপরে ঠিকানার বার দেখা যেতে পারে।';
+};
+
+/* ফাইল তৈরি */
+function esc(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+function buildHtml(src, name, theme){
+  var head = '\n<link rel="manifest" href="manifest.json">\n<meta name="theme-color" content="'+theme+'">\n<link rel="icon" href="icon-192.png">\n<link rel="apple-touch-icon" href="icon-192.png">\n';
+  var reg = '\n<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("service-worker.js")})}<\/script>\n';
+  var h = src.trim();
+  if(!/<html/i.test(h)) h = '<!DOCTYPE html>\n<html lang="bn">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>'+esc(name)+'<\/title>\n<\/head>\n<body>\n'+h+'\n<\/body>\n<\/html>';
+  if(/<head[^>]*>/i.test(h)) h = h.replace(/<head[^>]*>/i, function(m){return m+head});
+  else h = h.replace(/<html[^>]*>/i, function(m){return m+'<head>'+head+'<\/head>'});
+  if(/<\/body>/i.test(h)) h = h.replace(/<\/body>/i, reg+'<\/body>'); else h += reg;
+  return h;
+}
+var SW = 'var CACHE="app-v1";\nvar FILES=["./","index.html","manifest.json","icon-192.png","icon-512.png"];\nself.addEventListener("install",function(e){e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(FILES)}));self.skipWaiting()});\nself.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!==CACHE}).map(function(n){return caches.delete(n)}))}));self.clients.claim()});\nself.addEventListener("fetch",function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request)}))});\n';
+
+/* মূল কাজ */
+$('go').onclick = async function(){
+  var L = $('log'), btn = $('go');
+  var name = $('name').value.trim() || 'আমার অ্যাপ', code = $('code').value;
+  if(!$('tok').value.trim()){say(L,'ধাপ ১: আগে গিটহাব টোকেন দিন।','er');return}
+  if(!code.trim()){say(L,'ধাপ ৩: অ্যাপের কোড দিন।','er');return}
+  btn.disabled = true; var out = '';
+  function step(t){out += t + '\n'; say(L,out)}
+  try{
+    if(!login){var u = await gh('GET','/user'); login = u.login}
+    var root = $('mode').value === 'root';
+    var repo = root ? (login + '.github.io') : (slug($('repo').value) || slug(name) || ('app-' + Date.now().toString(36).slice(-5)));
+    if(!repo){throw {message:'রিপোর নাম ঠিক করুন (ইংরেজি অক্ষর)।'}}
+    step('১. রিপো তৈরি: ' + repo);
+    try{ await gh('POST','/user/repos',{name:repo, description:$('desc').value, private:false, auto_init:true}) }
+    catch(e){ if(e.status !== 422) throw e; step('   (রিপো আগে থেকেই আছে, ফাইল হালনাগাদ হবে)') }
+    var info = await gh('GET','/repos/'+login+'/'+repo);
+    var br = info.default_branch || 'main';
+    var manifest = {name:name, short_name:name.slice(0,12), description:$('desc').value, start_url:'./', scope:'./', display:'standalone',
+      background_color:$('bgc').value, theme_color:$('theme').value,
+      icons:[{src:'icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},{src:'icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'},{src:'icon-512.png',sizes:'512x512',type:'image/png',purpose:'maskable'}]};
+    lastFg = fgB64();
+    var files = [
+      ['index.html', b64(buildHtml(code,name,$('theme').value))],
+      ['manifest.json', b64(JSON.stringify(manifest,null,2))],
+      ['service-worker.js', b64(SW)],
+      ['icon-192.png', iconB64(192)],
+      ['icon-512.png', iconB64(512)],
+      ['privacy.html', b64(privacyHtml(name,$('email').value.trim(),$('dev').value.trim()))],
+      ['feature-graphic.png', lastFg],
+      ['.nojekyll', b64('')]
+    ];
+    step('২. ফাইল আপলোড হচ্ছে...');
+    for(var i=0;i<files.length;i++){
+      await putFile(login, repo, br, files[i][0], files[i][1], 'অ্যাপ পাবলিশার থেকে ' + files[i][0]);
+      step('   ✔ ' + files[i][0]);
+    }
+    step('৩. সাইট (Pages) চালু করা হচ্ছে...');
+    try{ await gh('POST','/repos/'+login+'/'+repo+'/pages',{source:{branch:br, path:'/'}}); step('   ✔ চালু হয়েছে') }
+    catch(e){ if(e.status === 409 || e.status === 422) step('   ✔ আগে থেকেই চালু'); else throw e }
+    var site = 'https://' + login.toLowerCase() + '.github.io/' + (root ? '' : repo + '/');
+    lastSite = site; lastRepo = repo; lastBranch = br;
+    $('siteUrl').textContent = site; $('openSite').href = site;
+    $('pwab').href = 'https://www.pwabuilder.com/reportcard?site=' + encodeURIComponent(site);
+    $('done').classList.remove('hide'); $('al').classList.remove('hide'); renderKit(name, site, repo); saveApp(name, site);
+    step('\n✅ শেষ! সাইট চালু হতে ১-২ মিনিট লাগতে পারে। পরের ধাপে যাচ্ছি...');
+    L.className = 'log ok'; L.textContent = out;
+    setTimeout(function(){$('selfTip').classList.toggle('hide',!selfMode);show(4)},1200);
+  }catch(e){
+    out += '\n❌ ' + (e.status ? explain(e) : e.message);
+    L.className = 'log er'; L.textContent = out;
+  }
+  btn.disabled = false;
+};
+
+/* মনে রাখা: ইমেইল, ডেভেলপারের নাম ও অ্যাপের তালিকা */
+['email','dev'].forEach(function(id){var v=lsGet('f_'+id);if(v&&!$(id).value)$(id).value=v;$(id).addEventListener('input',function(){lsSet('f_'+id,$(id).value)})});
+function renderApps(){
+  var A=[];try{A=JSON.parse(lsGet('apps')||'[]')}catch(e){}
+  var R=$('appList');R.textContent='';
+  $('myApps').classList.toggle('hide',!A.length);
+  A.forEach(function(a){
+    var d=document.createElement('div');d.className='kv';
+    var b=document.createElement('b');b.textContent=a.name;
+    var l=document.createElement('a');l.href=a.site;l.target='_blank';l.rel='noopener';l.textContent=a.site;
+    d.appendChild(b);d.appendChild(document.createElement('br'));d.appendChild(l);R.appendChild(d);
+  });
+}
+function saveApp(name,site){
+  var A=[];try{A=JSON.parse(lsGet('apps')||'[]')}catch(e){}
+  A=A.filter(function(a){return a.site!==site});A.unshift({name:name,site:site});
+  lsSet('apps',JSON.stringify(A.slice(0,30)));renderApps();
+}
+renderApps();
+$('mgrGo').onclick=async function(){
+  var u=lsGet('mgr_url'),t=lsGet('gh_tok')||lsGet('gt')||$('tok').value.trim();
+  if(!u&&t){say($('mgrMsg'),'খোঁজা হচ্ছে...');
+    try{var r=await fetch('https://api.github.com/user/repos?per_page=100&sort=updated',{headers:{Authorization:'token '+t}});var A=await r.json();
+      var m=Array.isArray(A)&&A.filter(function(x){return /manager|ম্যানেজার/i.test(x.name)&&x.has_pages})[0];
+      if(m){var lg=m.owner.login.toLowerCase();u='https://'+lg+'.github.io/'+(m.name.toLowerCase()===lg+'.github.io'?'':m.name+'/')}}catch(e){}}
+  if(!u)u=prompt('গিটহাব ম্যানেজারের লিংক বসান (একবারই লাগবে):')||'';
+  say($('mgrMsg'),'');
+  if(!u)return;
+  lsSet('mgr_url',u);location.href=u;
+};
+
+/* সাইট চালু কি না */
+$('live').onclick = async function(){
+  say($('liveMsg'),'দেখা হচ্ছে...');
+  try{
+    var r = await fetch(lastSite + 'manifest.json?t=' + Date.now(), {cache:'no-store'});
+    if(r.ok) say($('liveMsg'),'✅ সাইট চালু। এখন PWABuilder-এ যান।','ok');
+    else say($('liveMsg'),'এখনও চালু হয়নি। ১ মিনিট পর আবার চেষ্টা করুন।');
+  }catch(e){say($('liveMsg'),'এখনও চালু হয়নি। ১ মিনিট পর আবার চেষ্টা করুন।')}
+};
+
+/* assetlinks */
+$('alGo').onclick = async function(){
+  var t = $('alText').value.trim(), L = $('alLog');
+  if(!t){say(L,'আগে লেখাটি পেস্ট করুন।','er');return}
+  try{JSON.parse(t)}catch(e){say(L,'লেখাটি সঠিক JSON নয়। পুরোটা কপি করেছেন কি না দেখুন।','er');return}
+  say(L,'আপলোড হচ্ছে...');
+  try{
+    await putFile(login, lastRepo, lastBranch, '.well-known/assetlinks.json', b64(t), 'assetlinks.json');
+    say(L,'✅ আপলোড হয়েছে। ১-২ মিনিট পর কার্যকর হবে।','ok');
+  }catch(e){say(L,'❌ ' + explain(e),'er')}
+};
+
+var lastFg = '';
+function privacyHtml(name,email,dev){
+  var d=new Date().toISOString().slice(0,10), n=esc(name), e=esc(email||'-'), v=esc(dev||'App developer');
+  return '<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Privacy Policy - '+n+'<\/title><style>body{font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;line-height:1.7}<\/style><\/head><body><h1>Privacy Policy<\/h1><p><b>'+n+'<\/b> by '+v+'. Last updated: '+d+'.<\/p><p>This app does not collect, store on any server, or share your personal information. Any data you enter stays on your own device.<\/p><p>The app contains no advertising and no third-party trackers.<\/p><p>Contact: '+e+'<\/p><h1>গোপনীয়তা নীতি<\/h1><p>এই অ্যাপ আপনার কোনো ব্যক্তিগত তথ্য সংগ্রহ, সার্ভারে জমা বা অন্য কারও সাথে শেয়ার করে না। আপনি যা লেখেন তা আপনার ফোনেই থাকে।<\/p><p>অ্যাপে কোনো বিজ্ঞাপন বা থার্ড-পার্টি ট্র্যাকার নেই।<\/p><p>যোগাযোগ: '+e+'<\/p><\/body><\/html>';
+}
+function fgB64(){
+  var c=document.createElement('canvas');c.width=1024;c.height=500;var x=c.getContext('2d');
+  var g=x.createLinearGradient(0,0,1024,500);g.addColorStop(0,$('theme').value);g.addColorStop(1,'#0e1620');
+  x.fillStyle=g;x.fillRect(0,0,1024,500);
+  var t=document.createElement('canvas');drawIcon(t,240);
+  x.save();x.beginPath();if(x.roundRect)x.roundRect(70,130,240,240,48);else x.rect(70,130,240,240);x.clip();x.drawImage(t,70,130);x.restore();
+  x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';
+  x.font='bold 72px sans-serif';x.fillText(($('name').value.trim()||'App'),350,230,620);
+  x.font='36px sans-serif';x.fillText($('desc').value.slice(0,40),350,310,620);
+  return c.toDataURL('image/png').split(',')[1];
+}
+function pid(repo){
+  var a=login.toLowerCase().replace(/[^a-z0-9]/g,''), b=repo.toLowerCase().replace(/[^a-z0-9]/g,'');
+  if(/^[0-9]/.test(a))a='u'+a; if(/^[0-9]/.test(b))b='a'+b;
+  return 'com.github.'+a+'.'+b;
+}
+function copyTxt(t,b){
+  var ok=false;
+  try{if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t);ok=true}}catch(e){}
+  if(!ok){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+  b.textContent='✔ কপি হয়েছে';setTimeout(function(){b.textContent='কপি'},1500);
+}
+function renderKit(name,site,repo){
+  var R=$('kitRows');R.textContent='';
+  var desc=$('desc').value.trim();
+  var autoShort=name+' - সহজ ব্যবহারযোগ্য অ্যাপ';
+  var rows=[
+    ['অ্যাপের নাম (৩০ অক্ষরের মধ্যে)',name.slice(0,30)],
+    ['Package ID (PWABuilder-এ বসাবেন)',pid(repo)],
+    ['ছোট বিবরণ (৮০ অক্ষরের মধ্যে)',(desc||autoShort).slice(0,80)],
+    ['পূর্ণ বিবরণ',$('ldesc').value.trim()||desc||(name+' একটি সহজ ও ব্যবহারবান্ধব অ্যাপ। অ্যাপ সম্পর্কে আপনার মতামত আমাদের জানান।')],
+    ['গোপনীয়তা নীতির লিংক',site+'privacy.html'],
+    ['ফিচার গ্রাফিকের লিংক',site+'feature-graphic.png'],
+    ['যোগাযোগের ইমেইল',$('email').value.trim()||'(আপনার ইমেইল দিন)'],
+    ['ক্যাটাগরি (পরামর্শ)','Tools (অ্যাপের ধরন অনুযায়ী বদলাতে পারেন)'],
+    ['Data safety উত্তর','কোনো তথ্য সংগ্রহ বা শেয়ার করা হয় না']
+  ];
+  rows.forEach(function(r){
+    var d=document.createElement('div');d.className='kv';
+    var b=document.createElement('b');b.textContent=r[0];
+    var c=document.createElement('code');c.textContent=r[1];
+    var k=document.createElement('button');k.className='sec';k.textContent='কপি';
+    k.onclick=function(){copyTxt(r[1],k)};
+    d.appendChild(b);d.appendChild(c);d.appendChild(document.createElement('br'));d.appendChild(k);R.appendChild(d);
+  });
+  $('fgDl').href='data:image/png;base64,'+lastFg;
+  $('kit').classList.remove('hide');
+}
+var CK=[
+ 'টুলে সাইট তৈরি হয়েছে এবং খুলে দেখেছি',
+ 'গুগল প্লে ডেভেলপার অ্যাকাউন্ট খুলেছি (play.google.com/console, ২৫ ডলার, পরিচয় যাচাই)',
+ 'PWABuilder-এ সাইটের লিংক দিয়ে Start চেপেছি',
+ 'Package for stores > Android: নাম ও Package ID কিট থেকে কপি করেছি, AAB ও সাইনিং কী ডাউনলোড করে নিরাপদে রেখেছি',
+ 'প্লে কনসোলে Create app করেছি',
+ 'স্টোর লিস্টিং: নাম, ছোট ও পূর্ণ বিবরণ, আইকন, ফিচার গ্রাফিক, ২টি+ স্ক্রিনশট দিয়েছি',
+ 'গোপনীয়তা নীতির লিংক দিয়েছি',
+ 'Content rating ও Data safety ফর্ম পূরণ করেছি',
+ 'AAB আপলোড করে রিভিউয়ের জন্য জমা দিয়েছি',
+ '(ঐচ্ছিক) ঠিকানার বার সরাতে assetlinks.json আপলোড করেছি'
+];
+(function(){
+  var st={};try{st=JSON.parse(lsGet('ck')||'{}')}catch(e){}
+  var R=$('ckList'),cbs=[];
+  function prog(){var n=Object.keys(st).filter(function(k){return st[k]}).length;$('ckProg').textContent=n+' / '+CK.length+' ধাপ সম্পন্ন';
+    var nx=-1;for(var j=0;j<CK.length-1;j++){if(!st[j]){nx=j;break}}
+    $('todayTxt').textContent=nx<0?'মাশাআল্লাহ! সব প্রধান কাজ শেষ। আল্লাহ আপনার প্রচেষ্টায় বরকত দিন।':'এখন শুধু এটা করুন: '+CK[nx];
+    $('todayDone').classList.toggle('hide',nx<0);
+    var C='https://play.google.com/console',G={0:$('openSite').href,1:C,2:$('pwab').href,3:$('pwab').href,4:C,5:C,6:C,7:C,8:C};
+    var go=$('todayGo');if(nx>=0&&G[nx]&&G[nx].slice(-1)!=='#'){go.href=G[nx];go.classList.remove('hide')}else go.classList.add('hide');$('todayDone').dataset.i=nx}
+  CK.forEach(function(t,i){
+    var d=document.createElement('label');d.className='ck';
+    var c=document.createElement('input');c.type='checkbox';c.checked=!!st[i];cbs.push(c);
+    c.onchange=function(){st[i]=c.checked;lsSet('ck',JSON.stringify(st));prog()};
+    var sp=document.createElement('span');sp.textContent=t;
+    d.appendChild(c);d.appendChild(sp);R.appendChild(d);
+  });
+  $('todayDone').onclick=function(){var i=+this.dataset.i;if(i<0)return;st[i]=true;cbs[i].checked=true;lsSet('ck',JSON.stringify(st));prog()};
+  $('newApp').onclick=function(){if(!confirm('চেকলিস্ট নতুন করবেন? (ডেভেলপার অ্যাকাউন্টের ধাপ সম্পন্ন থাকবে)'))return;
+    Object.keys(st).forEach(function(k){if(+k!==1)st[k]=false});cbs.forEach(function(c,i){if(i!==1)c.checked=false});
+    lsSet('ck',JSON.stringify(st));prog();window.scrollTo(0,0)};
+  prog();
+})();
+
+var cur = 1;
+function show(n){
+  cur = n;
+  document.querySelectorAll('.st').forEach(function(e){e.classList.toggle('hide', +e.dataset.s !== n)});
+  $('bar').style.width = (n*25) + '%'; $('stl').textContent = 'ধাপ ' + n + ' / 4';
+  window.scrollTo(0,0);
+}
+$('hf').onchange = function(e){
+  var f = e.target.files[0]; if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){ selfMode = false; $('code').value = r.result; $('fn').textContent = '✅ ' + f.name + ' বাছা হয়েছে'; var t = (r.result.match(/<title>([^<]*)<\/title>/i) || [])[1]; if(!$('name').value.trim()) $('name').value = (t && t.trim()) || f.name.replace(/\.[^.]*$/,''); };
+  r.readAsText(f);
+};
+$('n1').onclick = function(){
+  var nm = $('name').value.trim(), E = $('e1');
+  if(!nm){
+    var tt = ($('code').value.match(/<title>([^<]*)<\/title>/i) || [])[1];
+    nm = (tt && tt.trim()) || 'আমার অ্যাপ';
+    $('name').value = nm;
+  }
+  if(!$('code').value.trim()){say(E,'অ্যাপের ফাইল বাছুন বা কোড দিন।','er');return}
+  if(!$('desc').value.trim()) $('desc').value = nm;
+  preview(); say(E,''); selfMode = false; afterStep1();
+};
+async function afterStep1(){
+  if($('tok').value.trim()){
+    say($('e1'),'গিটহাব যাচাই হচ্ছে...');
+    await $('chk').onclick();
+    say($('e1'),'');
+    if(login){show(3);return}
+  }
+  show(2);
+}
+$('selfBtn').onclick = function(){
+  selfMode = true;
+  $('name').value = 'অ্যাপ পাবলিশার';
+  $('desc').value = 'অ্যাপ প্রকাশের সহজ টুল';
+  $('ldesc').value = 'গিটহাবে অ্যাপ তুলে প্লে স্টোরের জন্য প্রস্তুত করার টুল।';
+  $('code').value = SELF;
+  $('repo').value = 'app-publisher';
+  $('mode').value = 'sep';
+  preview();
+  afterStep1();
+};
+$('b2').onclick = function(){show(1)};
+$('n2').onclick = async function(){
+  if(!$('tok').value.trim()){say($('who'),'আগে টোকেন বসান।','er');return}
+  await $('chk').onclick();
+  if(login) show(3);
+};
+$('b3').onclick = function(){show(2)};
+</script>
+</body>
+</html>
