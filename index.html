@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html lang="bn"><head>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f7b6c">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-
+<html lang="bn">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>অ্যাপ পাবলিশার</title>
@@ -75,6 +71,16 @@ details{margin-top:14px}summary{font-weight:700;color:var(--pri);padding:8px 0}
 <button class="sec" id="selfBtn">📲 এই টুলটিকেই আমার হোমস্ক্রিনে রাখুন</button>
 <p>টুল নিজেকে আপনার গিটহাবে তুলে দেবে। তারপর হোমস্ক্রিন থেকে অ্যাপের মতো খুলে যেকোনো সময় ব্যবহার করতে পারবেন।</p>
 </div>
+<div class="card" id="mgr">
+<h2>🔗 গিটহাব ম্যানেজার</h2>
+<p>ফাইল দেখা, বদলানো বা আগের অ্যাপ ঠিক করতে ম্যানেজার খুলুন। টোকেন আবার বসাতে হবে না (একই ওয়েবসাইট থেকে খুললে)।</p>
+<button class="sec" id="mgrGo">গিটহাব ম্যানেজার খুলুন</button>
+<div class="log" id="mgrMsg"></div>
+</div>
+<div class="card hide" id="myApps">
+<h2>📚 আমার অ্যাপগুলো</h2>
+<div id="appList"></div>
+</div>
 </div>
 
 <div class="st hide" data-s="2">
@@ -84,10 +90,10 @@ details{margin-top:14px}summary{font-weight:700;color:var(--pri);padding:8px 0}
 <a class="btn sec" target="_blank" rel="noopener" href="https://github.com/signup">গিটহাব অ্যাকাউন্ট খুলুন</a>
 <p class="sub">অ্যাকাউন্ট থাকলে টোকেন (গোপন চাবি) নিন:</p>
 <ol><li>নিচের বাটন ট্যাপ করুন, লগইন চাইলে লগইন করুন।</li><li>পাতার একদম নিচে সবুজ <b>Generate token</b> ট্যাপ করুন।</li><li>যে লেখাটি (ghp_...) আসবে তা কপি করে নিচে বসান।</li></ol>
-<a class="btn" target="_blank" rel="noopener" href="https://github.com/settings/tokens/new?scopes=repo&amp;description=app-publisher">টোকেন বানাতে গিটহাব খুলুন</a>
+<a class="btn" target="_blank" rel="noopener" href="https://github.com/settings/tokens/new?scopes=repo&description=app-publisher">টোকেন বানাতে গিটহাব খুলুন</a>
 <label for="tok">টোকেন</label>
 <input id="tok" type="password" placeholder="ghp_..." autocomplete="off">
-<label style="font-weight:400"><input type="checkbox" id="rem" checked=""> এই ফোনে মনে রাখুন (শুধু নিজের ফোনে)</label>
+<label style="font-weight:400"><input type="checkbox" id="rem" checked> এই ফোনে মনে রাখুন (শুধু নিজের ফোনে)</label>
 <button id="chk" class="hide">যাচাই</button>
 <div class="log" id="who"></div>
 <p class="warn">টোকেন কাউকে দেবেন না। কাজ শেষে গিটহাব থেকে মুছে দিতে পারেন।</p>
@@ -118,9 +124,18 @@ details{margin-top:14px}summary{font-weight:700;color:var(--pri);padding:8px 0}
 <ol><li>উপরের সাইটের লিংক Chrome-এ খুলুন।</li><li>ডান উপরের ⋮ ট্যাপ করে <b>Add to Home screen</b> বাছুন।</li><li>এরপর হোমস্ক্রিনের আইকন থেকে টুলটি খুলুন।</li></ol>
 <p>নতুন জায়গায় প্রথমবার টোকেন আবার বসাতে হবে। নিচের প্লে স্টোরের ধাপগুলো এই টুলের জন্য দরকার নেই, আপনার অন্য অ্যাপের জন্য কাজে লাগবে।</p>
 </div>
+<div class="card" id="today">
+<h2>🎯 আজকের কাজ</h2>
+<p id="todayTxt"></p>
+<a class="btn" id="todayGo" target="_blank" rel="noopener" href="#">👉 এই কাজের জায়গায় যান</a>
+<button id="todayDone">এটা হয়ে গেছে ✔</button>
+<button class="sec" id="newApp">🆕 নতুন অ্যাপ শুরু করুন</button>
+<p class="sub">একাধিক অ্যাপ দিলে প্রতিটির জন্য "নতুন অ্যাপ শুরু করুন" চাপুন। এতে চেকলিস্ট নতুন হবে, শুধু ডেভেলপার অ্যাকাউন্টের ধাপ সম্পন্ন থাকবে (ওটা একবারই লাগে)।</p>
+<p class="sub">একটি করে কাজ করুন। নিচের ক) ও খ) অংশে বিস্তারিত পাবেন।</p>
+</div>
 <div class="card">
 <h2>ক) অ্যাপ ফাইল (AAB) বানান</h2>
-<ol><li>নিচের বাটনে ট্যাপ করুন, PWABuilder খুলবে।</li><li>Package for stores &gt; Android &gt; Generate চাপুন।</li><li>Package ID ও নাম নিচের কিট থেকে কপি করে বসান।</li><li>AAB ও সাইনিং কী ডাউনলোড করে নিরাপদে রাখুন।</li></ol>
+<ol><li>নিচের বাটনে ট্যাপ করুন, PWABuilder খুলবে।</li><li>Package for stores > Android > Generate চাপুন।</li><li>Package ID ও নাম নিচের কিট থেকে কপি করে বসান।</li><li>AAB ও সাইনিং কী ডাউনলোড করে নিরাপদে রাখুন।</li></ol>
 <a class="btn" id="pwab" target="_blank" rel="noopener" href="#">PWABuilder খুলুন</a>
 </div>
 <div class="card hide" id="kit">
@@ -152,9 +167,7 @@ details{margin-top:14px}summary{font-weight:700;color:var(--pri);padding:8px 0}
 <script>
 var SELF = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
 var selfMode = false;
-var SAMPLE = '<!DOCTYPE html>\n<html lang="bn">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>কাউন্টার</title>\n<style>body{font-family:sans-serif;text-align:center;padding:40px}#n{font-size:80px}button{font-size:24px;padding:14px 30px;border-radius:14px;border:0;background:#0f7b6c;color:#fff}</style>\n</head>\n<body>\n<h2>আমার কাউন্টার</h2>\n<div id="n">0</div>\n<button onclick="n.textContent=++c">+১</button>\n<script>var c=0;<\/script>\n
-<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("service-worker.js")})}</script>
-</body>\n</html>';
+var SAMPLE = '<!DOCTYPE html>\n<html lang="bn">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>কাউন্টার<\/title>\n<style>body{font-family:sans-serif;text-align:center;padding:40px}#n{font-size:80px}button{font-size:24px;padding:14px 30px;border-radius:14px;border:0;background:#0f7b6c;color:#fff}<\/style>\n<\/head>\n<body>\n<h2>আমার কাউন্টার<\/h2>\n<div id="n">0<\/div>\n<button onclick="n.textContent=++c">+১<\/button>\n<script>var c=0;<\/script>\n<\/body>\n<\/html>';
 var $ = function(i){return document.getElementById(i)};
 var login = null, userImg = null, lastSite = '', lastRepo = '', lastBranch = 'main';
 
@@ -164,7 +177,7 @@ function lsDel(k){try{localStorage.removeItem(k)}catch(e){}}
 
 $('code').value = SAMPLE;
 $('reset').onclick = function(){$('code').value = SAMPLE};
-var saved = lsGet('gh_tok'); if(saved){$('tok').value = saved; $('rem').checked = true}
+var saved = lsGet('gh_tok') || lsGet('gt'); if(saved){$('tok').value = saved; $('rem').checked = true}
 
 function say(el, t, cls){el.className = 'log ' + (cls||''); el.textContent = t}
 function slug(s){return s.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'')}
@@ -229,7 +242,7 @@ $('chk').onclick = async function(){
   say($('who'),'যাচাই হচ্ছে...');
   try{
     var u = await gh('GET','/user'); login = u.login;
-    if($('rem').checked) lsSet('gh_tok', t); else lsDel('gh_tok');
+    if($('rem').checked){ lsSet('gh_tok', t); lsSet('gt', t) } else lsDel('gh_tok');
     say($('who'),'✅ সংযুক্ত: ' + login,'ok');
   }catch(e){login = null; say($('who'),'❌ ' + explain(e),'er')}
 };
@@ -248,10 +261,10 @@ function buildHtml(src, name, theme){
   var head = '\n<link rel="manifest" href="manifest.json">\n<meta name="theme-color" content="'+theme+'">\n<link rel="icon" href="icon-192.png">\n<link rel="apple-touch-icon" href="icon-192.png">\n';
   var reg = '\n<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("service-worker.js")})}<\/script>\n';
   var h = src.trim();
-  if(!/<html/i.test(h)) h = '<!DOCTYPE html>\n<html lang="bn">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>'+esc(name)+'</title>\n</head>\n<body>\n'+h+'\n</body>\n</html>';
+  if(!/<html/i.test(h)) h = '<!DOCTYPE html>\n<html lang="bn">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>'+esc(name)+'<\/title>\n<\/head>\n<body>\n'+h+'\n<\/body>\n<\/html>';
   if(/<head[^>]*>/i.test(h)) h = h.replace(/<head[^>]*>/i, function(m){return m+head});
-  else h = h.replace(/<html[^>]*>/i, function(m){return m+'<head>'+head+'</head>'});
-  if(/<\/body>/i.test(h)) h = h.replace(/<\/body>/i, reg+'</body>'); else h += reg;
+  else h = h.replace(/<html[^>]*>/i, function(m){return m+'<head>'+head+'<\/head>'});
+  if(/<\/body>/i.test(h)) h = h.replace(/<\/body>/i, reg+'<\/body>'); else h += reg;
   return h;
 }
 var SW = 'var CACHE="app-v1";\nvar FILES=["./","index.html","manifest.json","icon-192.png","icon-512.png"];\nself.addEventListener("install",function(e){e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(FILES)}));self.skipWaiting()});\nself.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!==CACHE}).map(function(n){return caches.delete(n)}))}));self.clients.claim()});\nself.addEventListener("fetch",function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request)}))});\n';
@@ -300,7 +313,7 @@ $('go').onclick = async function(){
     lastSite = site; lastRepo = repo; lastBranch = br;
     $('siteUrl').textContent = site; $('openSite').href = site;
     $('pwab').href = 'https://www.pwabuilder.com/reportcard?site=' + encodeURIComponent(site);
-    $('done').classList.remove('hide'); $('al').classList.remove('hide'); renderKit(name, site, repo);
+    $('done').classList.remove('hide'); $('al').classList.remove('hide'); renderKit(name, site, repo); saveApp(name, site);
     step('\n✅ শেষ! সাইট চালু হতে ১-২ মিনিট লাগতে পারে। পরের ধাপে যাচ্ছি...');
     L.className = 'log ok'; L.textContent = out;
     setTimeout(function(){$('selfTip').classList.toggle('hide',!selfMode);show(4)},1200);
@@ -309,6 +322,37 @@ $('go').onclick = async function(){
     L.className = 'log er'; L.textContent = out;
   }
   btn.disabled = false;
+};
+
+/* মনে রাখা: ইমেইল, ডেভেলপারের নাম ও অ্যাপের তালিকা */
+['email','dev'].forEach(function(id){var v=lsGet('f_'+id);if(v&&!$(id).value)$(id).value=v;$(id).addEventListener('input',function(){lsSet('f_'+id,$(id).value)})});
+function renderApps(){
+  var A=[];try{A=JSON.parse(lsGet('apps')||'[]')}catch(e){}
+  var R=$('appList');R.textContent='';
+  $('myApps').classList.toggle('hide',!A.length);
+  A.forEach(function(a){
+    var d=document.createElement('div');d.className='kv';
+    var b=document.createElement('b');b.textContent=a.name;
+    var l=document.createElement('a');l.href=a.site;l.target='_blank';l.rel='noopener';l.textContent=a.site;
+    d.appendChild(b);d.appendChild(document.createElement('br'));d.appendChild(l);R.appendChild(d);
+  });
+}
+function saveApp(name,site){
+  var A=[];try{A=JSON.parse(lsGet('apps')||'[]')}catch(e){}
+  A=A.filter(function(a){return a.site!==site});A.unshift({name:name,site:site});
+  lsSet('apps',JSON.stringify(A.slice(0,30)));renderApps();
+}
+renderApps();
+$('mgrGo').onclick=async function(){
+  var u=lsGet('mgr_url'),t=lsGet('gh_tok')||lsGet('gt')||$('tok').value.trim();
+  if(!u&&t){say($('mgrMsg'),'খোঁজা হচ্ছে...');
+    try{var r=await fetch('https://api.github.com/user/repos?per_page=100&sort=updated',{headers:{Authorization:'token '+t}});var A=await r.json();
+      var m=Array.isArray(A)&&A.filter(function(x){return /manager|ম্যানেজার/i.test(x.name)&&x.has_pages})[0];
+      if(m){var lg=m.owner.login.toLowerCase();u='https://'+lg+'.github.io/'+(m.name.toLowerCase()===lg+'.github.io'?'':m.name+'/')}}catch(e){}}
+  if(!u)u=prompt('গিটহাব ম্যানেজারের লিংক বসান (একবারই লাগবে):')||'';
+  say($('mgrMsg'),'');
+  if(!u)return;
+  lsSet('mgr_url',u);location.href=u;
 };
 
 /* সাইট চালু কি না */
@@ -336,7 +380,7 @@ $('alGo').onclick = async function(){
 var lastFg = '';
 function privacyHtml(name,email,dev){
   var d=new Date().toISOString().slice(0,10), n=esc(name), e=esc(email||'-'), v=esc(dev||'App developer');
-  return '<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Privacy Policy - '+n+'</title><style>body{font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;line-height:1.7}</style></head><body><h1>Privacy Policy</h1><p><b>'+n+'</b> by '+v+'. Last updated: '+d+'.</p><p>This app does not collect, store on any server, or share your personal information. Any data you enter stays on your own device.</p><p>The app contains no advertising and no third-party trackers.</p><p>Contact: '+e+'</p><h1>গোপনীয়তা নীতি</h1><p>এই অ্যাপ আপনার কোনো ব্যক্তিগত তথ্য সংগ্রহ, সার্ভারে জমা বা অন্য কারও সাথে শেয়ার করে না। আপনি যা লেখেন তা আপনার ফোনেই থাকে।</p><p>অ্যাপে কোনো বিজ্ঞাপন বা থার্ড-পার্টি ট্র্যাকার নেই।</p><p>যোগাযোগ: '+e+'</p></body></html>';
+  return '<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Privacy Policy - '+n+'<\/title><style>body{font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;line-height:1.7}<\/style><\/head><body><h1>Privacy Policy<\/h1><p><b>'+n+'<\/b> by '+v+'. Last updated: '+d+'.<\/p><p>This app does not collect, store on any server, or share your personal information. Any data you enter stays on your own device.<\/p><p>The app contains no advertising and no third-party trackers.<\/p><p>Contact: '+e+'<\/p><h1>গোপনীয়তা নীতি<\/h1><p>এই অ্যাপ আপনার কোনো ব্যক্তিগত তথ্য সংগ্রহ, সার্ভারে জমা বা অন্য কারও সাথে শেয়ার করে না। আপনি যা লেখেন তা আপনার ফোনেই থাকে।<\/p><p>অ্যাপে কোনো বিজ্ঞাপন বা থার্ড-পার্টি ট্র্যাকার নেই।<\/p><p>যোগাযোগ: '+e+'<\/p><\/body><\/html>';
 }
 function fgB64(){
   var c=document.createElement('canvas');c.width=1024;c.height=500;var x=c.getContext('2d');
@@ -363,11 +407,12 @@ function copyTxt(t,b){
 function renderKit(name,site,repo){
   var R=$('kitRows');R.textContent='';
   var desc=$('desc').value.trim();
+  var autoShort=name+' - সহজ ব্যবহারযোগ্য অ্যাপ';
   var rows=[
     ['অ্যাপের নাম (৩০ অক্ষরের মধ্যে)',name.slice(0,30)],
     ['Package ID (PWABuilder-এ বসাবেন)',pid(repo)],
-    ['ছোট বিবরণ (৮০ অক্ষরের মধ্যে)',desc.slice(0,80)],
-    ['পূর্ণ বিবরণ',$('ldesc').value.trim()||desc||name],
+    ['ছোট বিবরণ (৮০ অক্ষরের মধ্যে)',(desc||autoShort).slice(0,80)],
+    ['পূর্ণ বিবরণ',$('ldesc').value.trim()||desc||(name+' একটি সহজ ও ব্যবহারবান্ধব অ্যাপ। অ্যাপ সম্পর্কে আপনার মতামত আমাদের জানান।')],
     ['গোপনীয়তা নীতির লিংক',site+'privacy.html'],
     ['ফিচার গ্রাফিকের লিংক',site+'feature-graphic.png'],
     ['যোগাযোগের ইমেইল',$('email').value.trim()||'(আপনার ইমেইল দিন)'],
@@ -399,15 +444,24 @@ var CK=[
 ];
 (function(){
   var st={};try{st=JSON.parse(lsGet('ck')||'{}')}catch(e){}
-  var R=$('ckList');
-  function prog(){var n=Object.keys(st).filter(function(k){return st[k]}).length;$('ckProg').textContent=n+' / '+CK.length+' ধাপ সম্পন্ন'}
+  var R=$('ckList'),cbs=[];
+  function prog(){var n=Object.keys(st).filter(function(k){return st[k]}).length;$('ckProg').textContent=n+' / '+CK.length+' ধাপ সম্পন্ন';
+    var nx=-1;for(var j=0;j<CK.length-1;j++){if(!st[j]){nx=j;break}}
+    $('todayTxt').textContent=nx<0?'মাশাআল্লাহ! সব প্রধান কাজ শেষ। আল্লাহ আপনার প্রচেষ্টায় বরকত দিন।':'এখন শুধু এটা করুন: '+CK[nx];
+    $('todayDone').classList.toggle('hide',nx<0);
+    var C='https://play.google.com/console',G={0:$('openSite').href,1:C,2:$('pwab').href,3:$('pwab').href,4:C,5:C,6:C,7:C,8:C};
+    var go=$('todayGo');if(nx>=0&&G[nx]&&G[nx].slice(-1)!=='#'){go.href=G[nx];go.classList.remove('hide')}else go.classList.add('hide');$('todayDone').dataset.i=nx}
   CK.forEach(function(t,i){
     var d=document.createElement('label');d.className='ck';
-    var c=document.createElement('input');c.type='checkbox';c.checked=!!st[i];
+    var c=document.createElement('input');c.type='checkbox';c.checked=!!st[i];cbs.push(c);
     c.onchange=function(){st[i]=c.checked;lsSet('ck',JSON.stringify(st));prog()};
     var sp=document.createElement('span');sp.textContent=t;
     d.appendChild(c);d.appendChild(sp);R.appendChild(d);
   });
+  $('todayDone').onclick=function(){var i=+this.dataset.i;if(i<0)return;st[i]=true;cbs[i].checked=true;lsSet('ck',JSON.stringify(st));prog()};
+  $('newApp').onclick=function(){if(!confirm('চেকলিস্ট নতুন করবেন? (ডেভেলপার অ্যাকাউন্টের ধাপ সম্পন্ন থাকবে)'))return;
+    Object.keys(st).forEach(function(k){if(+k!==1)st[k]=false});cbs.forEach(function(c,i){if(i!==1)c.checked=false});
+    lsSet('ck',JSON.stringify(st));prog();window.scrollTo(0,0)};
   prog();
 })();
 
@@ -462,4 +516,6 @@ $('n2').onclick = async function(){
   if(login) show(3);
 };
 $('b3').onclick = function(){show(2)};
-</script></body></html>
+</script>
+</body>
+</html>
